@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "me.lucyydotp"
-version = "1.0.0-SNAPSHOT"
+version = "0.1.0"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
