@@ -23,9 +23,10 @@ public abstract class ArmorStandMixin extends Entity {
     public boolean isCurrentlyGlowing() {
         final var perspectiveMode = PassengerPerspectiveMod.getPerspectiveMode();
 
+        //noinspection ConstantValue
         return super.isCurrentlyGlowing() || (
                 perspectiveMode instanceof CameraPerspectiveMode.ArmorStandHead ash &&
-                        ash.armorStand().is(this)
+                        ash.shouldGlow((ArmorStand) (Object) this)
         );
     }
 }

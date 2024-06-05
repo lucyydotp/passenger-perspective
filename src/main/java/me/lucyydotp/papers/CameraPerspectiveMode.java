@@ -18,6 +18,7 @@ public sealed interface CameraPerspectiveMode {
 
     /**
      * Transforms the camera to apply the perspective mode.
+     *
      * @param cameraPoseStack a pose stack to mutate
      */
     void transform(PoseStack cameraPoseStack);
@@ -28,10 +29,12 @@ public sealed interface CameraPerspectiveMode {
     final class ArmorStandHead implements CameraPerspectiveMode {
 
         private final ArmorStand armorStand;
+        private final long creationTime;
         private float lastYRot;
 
         public ArmorStandHead(ArmorStand armorStand) {
             this.armorStand = armorStand;
+            this.creationTime = armorStand.level.getGameTime();
             this.lastYRot = armorStand.getYRot();
         }
 
@@ -72,6 +75,16 @@ public sealed interface CameraPerspectiveMode {
                     (float) (-player.getBbHeight() - player.getMyRidingOffset()),
                     0
             );
+        }
+
+        public boolean shouldGlow(ArmorStand entity) {
+            if (!entity.is(armorStand)) return false;
+            final var diff = armorStand.level.getGameTime() - creationTime;
+
+            return diff < 4 ||
+                    (8 < diff && diff < 12) ||
+                    (16 < diff && diff < 20);
+
         }
     }
 }
