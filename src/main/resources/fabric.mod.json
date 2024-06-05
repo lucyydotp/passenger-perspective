@@ -5,9 +5,11 @@
     "name": "Passenger Perspective",
     "description": "Ride camera shenanigans",
     "authors": ["lucyy.p"],
+    "license": "BSD-2-Clause",
     "contact": {
         "sources": "https://github.com/lucyydotp/passenger-perspective",
-        "issues": "https://github.com/lucyydotp/passenger-perspective/issues"
+        "issues": "https://github.com/lucyydotp/passenger-perspective/issues",
+        "homepage": "https://modrinth.com/project/papers"
     },
     "entrypoints": {
         "client": [
