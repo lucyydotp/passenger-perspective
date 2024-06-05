@@ -1,7 +1,7 @@
-package me.lucyydotp.passengerperspective.mixin;
+package me.lucyydotp.papers.mixin;
 
-import me.lucyydotp.passengerperspective.CameraPerspectiveMode;
-import me.lucyydotp.passengerperspective.PassengerPerspectiveMod;
+import me.lucyydotp.papers.CameraPerspectiveMode;
+import me.lucyydotp.papers.PassengerPerspectiveMod;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ArmorStand;

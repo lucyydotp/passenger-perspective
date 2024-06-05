@@ -1,7 +1,7 @@
-package me.lucyydotp.passengerperspective.mixin;
+package me.lucyydotp.papers.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.lucyydotp.passengerperspective.PassengerPerspectiveMod;
+import me.lucyydotp.papers.PassengerPerspectiveMod;
 import net.minecraft.client.renderer.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

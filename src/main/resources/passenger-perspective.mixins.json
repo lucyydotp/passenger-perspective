@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "me.lucyydotp.passengerperspective.mixin",
+    "package": "me.lucyydotp.papers.mixin",
     "client": [
         "GameRendererMixin",
         "ArmorStandMixin"

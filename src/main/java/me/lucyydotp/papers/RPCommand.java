@@ -1,4 +1,4 @@
-package me.lucyydotp.passengerperspective;
+package me.lucyydotp.papers;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;

@@ -1,4 +1,4 @@
-package me.lucyydotp.passengerperspective;
+package me.lucyydotp.papers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
