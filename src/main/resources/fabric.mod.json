@@ -1,0 +1,14 @@
+{
+    "schemaVersion": 1,
+    "id": "passenger-perspective",
+    "version": "1.0.0-SNAPSHOT",
+    "entrypoints": {
+        "client": [
+            "me.lucyydotp.passengerperspective.PassengerPerspectiveMod"
+        ]
+    },
+    "environment": "client",
+    "mixins": [
+        "passenger-perspective.mixins.json"
+    ]
+}
