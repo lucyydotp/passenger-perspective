@@ -13,13 +13,12 @@ public abstract class ArmorStandMixin extends Entity {
 
     public ArmorStandMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
+        throw new AbstractMethodError("Mixin abstract class constructor");
     }
 
-//    @Override
-//    public boolean isInvisible() {
-//        return false;
-//    }
-
+    /**
+     * Makes the current target armour stand glow.
+     */
     @Override
     public boolean isCurrentlyGlowing() {
         final var perspectiveMode = PassengerPerspectiveMod.getPerspectiveMode();

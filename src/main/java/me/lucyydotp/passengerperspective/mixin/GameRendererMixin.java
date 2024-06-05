@@ -9,6 +9,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
+
+    /**
+     * Applies the active perspective mode's camera transformation.
+     */
     @ModifyArg(
             method = "renderLevel",
             at = @At(

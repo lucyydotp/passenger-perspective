@@ -1,4 +1,4 @@
-rootProject.name = "ride-perspective"
+rootProject.name = "passenger-perspective"
 
 pluginManagement {
     repositories {

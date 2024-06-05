@@ -1,7 +1,14 @@
 {
     "schemaVersion": 1,
     "id": "passenger-perspective",
-    "version": "1.0.0-SNAPSHOT",
+    "version": "${version}",
+    "name": "Passenger Perspective",
+    "description": "Ride camera shenanigans",
+    "authors": ["lucyy.p"],
+    "contact": {
+        "sources": "https://github.com/lucyydotp/passenger-perspective",
+        "issues": "https://github.com/lucyydotp/passenger-perspective/issues"
+    },
     "entrypoints": {
         "client": [
             "me.lucyydotp.passengerperspective.PassengerPerspectiveMod"

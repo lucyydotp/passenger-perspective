@@ -7,6 +7,7 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
@@ -19,6 +20,7 @@ public class RPCommand {
 
                         final var player = context.getSource().getPlayer();
 
+                        // Find the closest armour stand with any equipment.
                         final var entities = player.level.getEntitiesOfClass(
                                         ArmorStand.class,
                                         AABB.ofSize(player.position(), 10, 10, 10)
@@ -29,6 +31,7 @@ public class RPCommand {
                                                 .stream()
                                                 .anyMatch(slot -> slot instanceof ItemStack && !slot.isEmpty())
                                 )
+                                .sorted(Comparator.comparingDouble(e -> e.distanceToSqr(player)))
                                 .toList();
 
                         if (entities.isEmpty()) {

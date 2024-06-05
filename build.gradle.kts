@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "me.lucyydotp"
-version = "1.0-SNAPSHOT"
+version = "1.0.0-SNAPSHOT"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -17,4 +17,11 @@ dependencies {
     mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:0.15.11")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.87.2+1.19.4")
+}
+
+
+tasks.processResources {
+    filesMatching("fabric.mod.json") {
+        expand("version" to project.version)
+    }
 }

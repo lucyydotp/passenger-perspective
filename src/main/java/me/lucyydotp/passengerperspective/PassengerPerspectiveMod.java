@@ -8,6 +8,9 @@ public class PassengerPerspectiveMod implements ClientModInitializer {
 
     private static @Nullable CameraPerspectiveMode perspectiveMode;
 
+    /**
+     * The current active camera perspective mode.
+     */
     public static @Nullable CameraPerspectiveMode getPerspectiveMode() {
         if (perspectiveMode == null) {
             return null;
@@ -18,6 +21,10 @@ public class PassengerPerspectiveMod implements ClientModInitializer {
         return perspectiveMode;
     }
 
+    /**
+     * Sets the current active camera perspective mode.
+     * If null, camera is returned to vanilla behaviour.
+     */
     public static void setPerspectiveMode(@Nullable CameraPerspectiveMode perspectiveMode) {
         PassengerPerspectiveMod.perspectiveMode = perspectiveMode;
     }
