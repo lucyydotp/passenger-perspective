@@ -1,0 +1,5 @@
+{
+    "papers.focus": "Focused your ride car.",
+    "papers.focus.error": "Couldn't find a ride car nearby.",
+    "papers.clearfocus": "Cleared your focused ride car."
+}

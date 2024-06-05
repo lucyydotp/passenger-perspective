@@ -2,6 +2,7 @@ package me.lucyydotp.papers;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +36,7 @@ public class RPCommand {
                                 .toList();
 
                         if (entities.isEmpty()) {
-                            context.getSource().sendError(Component.literal("Couldn't find an entity to focus on."));
+                            context.getSource().sendError(Translations.translate(Translations.FOCUS_ERROR).withStyle(ChatFormatting.RED));
                             return 0;
                         }
 
@@ -43,19 +44,20 @@ public class RPCommand {
                                 new CameraPerspectiveMode.ArmorStandHead(entities.get(0))
                         );
 
-                        context.getSource().sendFeedback(Component.literal("Now focusing on entity " + entities.get(0).getUUID() + "."));
+                        context.getSource().sendFeedback(Translations.translate(Translations.FOCUS));
+
                         return 0;
                     });
 
     private static final LiteralArgumentBuilder<FabricClientCommandSource> CLEAR =
             literal("clear").executes((context) -> {
                 PassengerPerspectiveMod.setPerspectiveMode(null);
-                context.getSource().sendFeedback(Component.literal("Cleared focused entities."));
+                context.getSource().sendFeedback(Translations.translate(Translations.CLEAR_FOCUS));
                 return 0;
             });
 
     public static final LiteralArgumentBuilder<FabricClientCommandSource> ROOT =
-            literal("perspective")
+            literal("papers")
                     .then(FOCUS)
                     .then(CLEAR);
 }

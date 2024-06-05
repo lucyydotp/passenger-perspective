@@ -13,7 +13,7 @@
     },
     "entrypoints": {
         "client": [
-            "me.lucyydotp.passengerperspective.PassengerPerspectiveMod"
+            "me.lucyydotp.papers.PassengerPerspectiveMod"
         ]
     },
     "environment": "client",
