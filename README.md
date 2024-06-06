@@ -9,10 +9,10 @@ Passenger Perspective (or PaPers for short) is a Fabric mod that improves the ca
 
 - If the server you're playing on has a setting for forced ride perspective, disable it.
 - Enter the ride as normal.
-- Run the command `/perspective focus`. Your ride vehicle should start glowing.
+- Run the command `/papers focus`. Your ride vehicle should start glowing.
 - Your camera will be controlled by the mod while you're riding a vehicle and have a focused vehicle (they do not have 
 to be the same).
-- You can disable the mod by running `/perspective clear`.
+- You can disable the mod by running `/papers clear`.
 
 # Compatibility
 PaPers is designed to work with as many servers as possible. Most servers use the same technique to make rides using 
