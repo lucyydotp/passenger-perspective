@@ -2,6 +2,7 @@ package me.lucyydotp.papers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
@@ -21,7 +22,7 @@ public sealed interface CameraPerspectiveMode {
      *
      * @param cameraPoseStack a pose stack to mutate
      */
-    void transform(PoseStack cameraPoseStack);
+    void transform(PoseStack cameraPoseStack, float tickProgress, long time);
 
     /**
      * A perspective mode that derives rotation from an armour stand's body rotation and head pose.
@@ -51,11 +52,9 @@ public sealed interface CameraPerspectiveMode {
         }
 
         @Override
-        public void transform(PoseStack cameraPoseStack) {
+        public void transform(PoseStack cameraPoseStack, float tickProgress, long time) {
             final var player = Minecraft.getInstance().player;
             if (!player.isPassenger()) return;
-
-            final var pose = armorStand.getHeadPose();
 
             // fixme: is doing this on the render thread bad?
             player.turn(
@@ -65,11 +64,14 @@ public sealed interface CameraPerspectiveMode {
 
             lastYRot = armorStand.getYRot();
 
+            final var pose = armorStand.getHeadPose();
+            final var lastPose = ((ArmorStandExt) armorStand).paper$lastHeadRot();
+
             cameraPoseStack.rotateAround(
                     new Quaternionf()
-                            .rotateAxis((float) Math.toRadians(pose.getZ()), player.getForward().toVector3f())
-                            .rotateAxis((float) Math.toRadians(pose.getY()), player.getUpVector(1).toVector3f())
-                            .rotateAxis((float) Math.toRadians(-pose.getX()), player.getForward().toVector3f().rotateY((float) (Math.PI / 2f))),
+                            .rotateAxis((float) Math.toRadians(Mth.lerp(tickProgress, lastPose.getZ(), pose.getZ())), player.getForward().toVector3f())
+                            .rotateAxis((float) Math.toRadians(Mth.lerp(tickProgress, lastPose.getY(), pose.getY())), player.getUpVector(1).toVector3f())
+                            .rotateAxis((float) Math.toRadians(Mth.lerp(tickProgress, -lastPose.getX(), -pose.getX())), player.getForward().toVector3f().rotateY((float) (Math.PI / 2f))),
                     0,
                     // fixme: this might be a little low?
                     (float) (-player.getBbHeight() - player.getMyRidingOffset()),
