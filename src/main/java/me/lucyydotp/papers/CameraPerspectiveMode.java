@@ -1,8 +1,8 @@
 package me.lucyydotp.papers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import me.lucyydotp.papers.util.RotationInterpolator;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
@@ -69,12 +69,12 @@ public sealed interface CameraPerspectiveMode {
 
             cameraPoseStack.rotateAround(
                     new Quaternionf()
-                            .rotateAxis((float) Math.toRadians(Mth.lerp(tickProgress, lastPose.getZ(), pose.getZ())), player.getForward().toVector3f())
-                            .rotateAxis((float) Math.toRadians(Mth.lerp(tickProgress, lastPose.getY(), pose.getY())), player.getUpVector(1).toVector3f())
-                            .rotateAxis((float) Math.toRadians(Mth.lerp(tickProgress, -lastPose.getX(), -pose.getX())), player.getForward().toVector3f().rotateY((float) (Math.PI / 2f))),
+                            .rotateAxis((float) Math.toRadians(RotationInterpolator.lerpDegrees(tickProgress, lastPose.getZ(), pose.getZ())), player.getForward().toVector3f())
+                            .rotateAxis((float) Math.toRadians(RotationInterpolator.lerpDegrees(tickProgress, lastPose.getY(), pose.getY())), player.getUpVector(1).toVector3f())
+                            .rotateAxis((float) Math.toRadians(RotationInterpolator.lerpDegrees(tickProgress, -lastPose.getX(), -pose.getX())), player.getForward().toVector3f().rotateY((float) (Math.PI / 2f))),
                     0,
                     // fixme: this might be a little low?
-                    (float) (-player.getBbHeight()  - player.getMyRidingOffset()),
+                    (float) -1,
                     0
             );
         }
