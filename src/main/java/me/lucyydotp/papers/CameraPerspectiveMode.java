@@ -74,7 +74,7 @@ public sealed interface CameraPerspectiveMode {
                             .rotateAxis((float) Math.toRadians(Mth.lerp(tickProgress, -lastPose.getX(), -pose.getX())), player.getForward().toVector3f().rotateY((float) (Math.PI / 2f))),
                     0,
                     // fixme: this might be a little low?
-                    (float) (-player.getBbHeight() - player.getMyRidingOffset()),
+                    (float) (-player.getBbHeight()  - player.getMyRidingOffset()),
                     0
             );
         }
@@ -83,9 +83,9 @@ public sealed interface CameraPerspectiveMode {
             if (!entity.is(armorStand)) return false;
             final var diff = armorStand.level.getGameTime() - creationTime;
 
-            return diff < 4 ||
-                    (8 < diff && diff < 12) ||
-                    (16 < diff && diff < 20);
+            return diff < 5 ||
+                    (7 < diff && diff < 12) ||
+                    (15 < diff && diff < 20);
 
         }
     }

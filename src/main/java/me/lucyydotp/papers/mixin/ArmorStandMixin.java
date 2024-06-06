@@ -33,21 +33,11 @@ public abstract class ArmorStandMixin extends Entity implements ArmorStandExt {
     }
 
     @Inject(
-            method = "setHeadPose",
-            at = @At("HEAD")
-    )
-    public void setLastHeadPose(Rotations rotations, CallbackInfo ci) {
-        papers$lastHeadRot = headPose;
-    }
-
-    @Inject(
             method = "tick",
             at = @At("HEAD")
     )
-    public void clearLastHeadPose(CallbackInfo ci, @Local(name = "rotations") Rotations rotations) {
-        if (this.headPose.equals(rotations)) {
-            papers$lastHeadRot = headPose;
-        }
+    public void clearLastHeadPose(CallbackInfo ci) {
+        papers$lastHeadRot = headPose;
     }
 
     /**
