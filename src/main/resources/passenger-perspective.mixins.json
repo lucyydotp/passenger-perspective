@@ -2,8 +2,8 @@
     "required": true,
     "package": "me.lucyydotp.papers.mixin",
     "client": [
-        "GameRendererMixin",
-        "ArmorStandMixin"
-
+        "ArmorStandArmorModelMixin",
+        "ArmorStandMixin",
+        "GameRendererMixin"
     ]
 }

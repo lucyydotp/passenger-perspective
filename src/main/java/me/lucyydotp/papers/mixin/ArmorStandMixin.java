@@ -1,12 +1,12 @@
 package me.lucyydotp.papers.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import me.lucyydotp.papers.ArmorStandExt;
 import me.lucyydotp.papers.CameraPerspectiveMode;
 import me.lucyydotp.papers.PassengerPerspectiveMod;
 import net.minecraft.core.Rotations;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.*;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ArmorStand.class)
-public abstract class ArmorStandMixin extends Entity implements ArmorStandExt {
+public abstract class ArmorStandMixin extends LivingEntity implements ArmorStandExt {
 
     @Shadow
     @Final
@@ -24,10 +24,14 @@ public abstract class ArmorStandMixin extends Entity implements ArmorStandExt {
     @Shadow
     private Rotations headPose;
 
+    @SuppressWarnings("UnusedAssignment")
     @Unique
     private Rotations papers$lastHeadRot = DEFAULT_HEAD_POSE;
 
-    public ArmorStandMixin(EntityType<?> entityType, Level level) {
+    @Unique
+    private boolean papers$shouldInterpolateHead;
+
+    public ArmorStandMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
         throw new AbstractMethodError("Mixin abstract class constructor");
     }
@@ -37,7 +41,9 @@ public abstract class ArmorStandMixin extends Entity implements ArmorStandExt {
             at = @At("HEAD")
     )
     public void clearLastHeadPose(CallbackInfo ci) {
-        papers$lastHeadRot = headPose;
+        if (headPose != null) {
+            papers$lastHeadRot = headPose;
+        }
     }
 
     /**
@@ -55,7 +61,17 @@ public abstract class ArmorStandMixin extends Entity implements ArmorStandExt {
     }
 
     @Override
-    public Rotations paper$lastHeadRot() {
+    public Rotations papers$lastHeadRot() {
         return papers$lastHeadRot;
+    }
+
+    @Override
+    public boolean papers$shouldInterpolateHead() {
+        return papers$shouldInterpolateHead;
+    }
+
+    @Override
+    public void papers$shouldInterpolateHead(boolean value) {
+        papers$shouldInterpolateHead = value;
     }
 }
