@@ -7,7 +7,6 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 /**
  * A camera perspective mode.
@@ -34,12 +33,12 @@ public sealed interface CameraPerspectiveMode {
         private final ArmorStand armorStand;
         private final long creationTime;
 
-        private float lastHeadY;
+        private float lastYRot;
 
         public ArmorStandHead(ArmorStand armorStand) {
             this.armorStand = armorStand;
             this.creationTime = armorStand.level.getGameTime();
-            this.lastHeadY = armorStand.yHeadRot;
+            this.lastYRot = armorStand.yHeadRot;
         }
 
         /**
@@ -59,15 +58,13 @@ public sealed interface CameraPerspectiveMode {
             final var player = Minecraft.getInstance().player;
             if (!player.isPassenger()) return;
 
-//            player.setYRot(player.getYRot() + tickProgress * -Mth.degreesDifference(armorStand.getYRot(), armorStand.yRotO));
-
-            final var lerp = Mth.rotLerp(tickProgress, armorStand.yRotO, armorStand.getYRot());
-            player.setYRot(player.getYRot() + lerp - lastHeadY);
-            lastHeadY = lerp;
+            final var lerpedYRot = Mth.rotLerp(tickProgress, armorStand.yRotO, armorStand.getYRot());
+            player.setYRot(player.getYRot() + lerpedYRot - lastYRot);
+            lastYRot = lerpedYRot;
 
             final var pose = armorStand.getHeadPose();
             final var lastPose = ((ArmorStandExt) armorStand).paper$lastHeadRot();
-            final var forward = Vec3.directionFromRotation(0, lerp).toVector3f();
+            final var forward = Vec3.directionFromRotation(0, lerpedYRot).toVector3f();
 
             // fixme: properly slerp instead of doing whatever this is
             cameraPoseStack.rotateAround(
