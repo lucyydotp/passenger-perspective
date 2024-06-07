@@ -3,7 +3,7 @@
 Passenger Perspective (or PaPers for short) is a Fabric mod that improves the camera for theme park servers.
 
 ### Demo video (click to watch)
-[![demo video](https://img.youtube.com/vi/4Bu7smcJ1GI/0.jpg)](https://youtu.be/4Bu7smcJ1GI)
+[![demo video](https://img.youtube.com/vi/TC_92oMWGjE/0.jpg)](https://youtu.be/https://youtu.be/TC_92oMWGjE)
 
 # How to use
 
