@@ -6,6 +6,7 @@ import me.lucyydotp.papers.PassengerPerspectiveMod;
 import net.minecraft.core.Rotations;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.*;
@@ -14,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ArmorStand.class)
-public abstract class ArmorStandMixin extends Entity implements ArmorStandExt {
+public abstract class ArmorStandMixin extends LivingEntity implements ArmorStandExt {
 
     @Shadow
     @Final
@@ -30,7 +31,7 @@ public abstract class ArmorStandMixin extends Entity implements ArmorStandExt {
     @Unique
     private boolean papers$shouldInterpolateHead;
 
-    public ArmorStandMixin(EntityType<?> entityType, Level level) {
+    public ArmorStandMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
         throw new AbstractMethodError("Mixin abstract class constructor");
     }
@@ -40,7 +41,9 @@ public abstract class ArmorStandMixin extends Entity implements ArmorStandExt {
             at = @At("HEAD")
     )
     public void clearLastHeadPose(CallbackInfo ci) {
-        papers$lastHeadRot = headPose;
+        if (headPose != null) {
+            papers$lastHeadRot = headPose;
+        }
     }
 
     /**
