@@ -19,15 +19,6 @@ public abstract class ArmorStandArmorModelMixin extends HumanoidModel<ArmorStand
         super(modelPart);
     }
 
-    @Unique
-    private float papers$partialTickTime;
-
-    @Override
-    public void prepareMobModel(ArmorStand livingEntity, float f, float g, float h) {
-        papers$partialTickTime = h;
-        super.prepareMobModel(livingEntity, f, g, h);
-    }
-
     @Inject(
             method = "setupAnim(Lnet/minecraft/world/entity/decoration/ArmorStand;FFFFF)V",
             at = @At(
