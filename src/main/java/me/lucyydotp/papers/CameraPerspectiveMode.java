@@ -67,12 +67,13 @@ public sealed interface CameraPerspectiveMode {
 
             final var pose = armorStand.getHeadPose();
             final var lastPose = ((ArmorStandExt) armorStand).paper$lastHeadRot();
-            final var forward = Vec3.directionFromRotation(0, player.getYRot()).toVector3f();
+            final var forward = Vec3.directionFromRotation(0, lerp).toVector3f();
 
+            // fixme: properly slerp instead of doing whatever this is
             cameraPoseStack.rotateAround(
                     new Quaternionf()
                             .rotateAxis((float) Math.toRadians(Mth.rotLerp(tickProgress, lastPose.getZ(), pose.getZ())), forward)
-                            .rotateAxis((float) Math.toRadians(Mth.rotLerp(tickProgress, lastPose.getY(), pose.getY())), player.getUpVector(1).toVector3f())
+                            .rotateLocalY((float) Math.toRadians(Mth.rotLerp(tickProgress, lastPose.getY(), pose.getY())))
                             .rotateAxis((float) Math.toRadians(Mth.rotLerp(tickProgress, lastPose.getX(), pose.getX())), forward.rotateY((float) (Math.PI / -2f))),
                     0,
                     // fixme: i completely made this value up. it feels okay-ish but isn't right
