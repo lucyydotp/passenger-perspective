@@ -1,6 +1,5 @@
 package me.lucyydotp.papers.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import me.lucyydotp.papers.ArmorStandExt;
 import me.lucyydotp.papers.CameraPerspectiveMode;
 import me.lucyydotp.papers.PassengerPerspectiveMod;
@@ -24,8 +23,12 @@ public abstract class ArmorStandMixin extends Entity implements ArmorStandExt {
     @Shadow
     private Rotations headPose;
 
+    @SuppressWarnings("UnusedAssignment")
     @Unique
     private Rotations papers$lastHeadRot = DEFAULT_HEAD_POSE;
+
+    @Unique
+    private boolean papers$shouldInterpolateHead;
 
     public ArmorStandMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -55,7 +58,17 @@ public abstract class ArmorStandMixin extends Entity implements ArmorStandExt {
     }
 
     @Override
-    public Rotations paper$lastHeadRot() {
+    public Rotations papers$lastHeadRot() {
         return papers$lastHeadRot;
+    }
+
+    @Override
+    public boolean papers$shouldInterpolateHead() {
+        return papers$shouldInterpolateHead;
+    }
+
+    @Override
+    public void papers$shouldInterpolateHead(boolean value) {
+        papers$shouldInterpolateHead = value;
     }
 }

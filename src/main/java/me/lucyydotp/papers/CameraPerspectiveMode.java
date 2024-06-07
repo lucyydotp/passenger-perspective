@@ -37,6 +37,7 @@ public sealed interface CameraPerspectiveMode {
 
         public ArmorStandHead(ArmorStand armorStand) {
             this.armorStand = armorStand;
+            ((ArmorStandExt) armorStand).papers$shouldInterpolateHead(true);
             this.creationTime = armorStand.level.getGameTime();
             this.lastYRot = armorStand.yHeadRot;
         }
@@ -63,7 +64,7 @@ public sealed interface CameraPerspectiveMode {
             lastYRot = lerpedYRot;
 
             final var pose = armorStand.getHeadPose();
-            final var lastPose = ((ArmorStandExt) armorStand).paper$lastHeadRot();
+            final var lastPose = ((ArmorStandExt) armorStand).papers$lastHeadRot();
             final var forward = Vec3.directionFromRotation(0, lerpedYRot).toVector3f();
 
             // fixme: properly slerp instead of doing whatever this is
