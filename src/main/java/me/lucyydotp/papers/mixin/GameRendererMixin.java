@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
@@ -31,19 +30,17 @@ public class GameRendererMixin {
     /**
      * Applies the active perspective mode's camera transformation.
      */
-    @ModifyArg(
+    @Inject(
             method = "renderLevel",
             at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/renderer/LevelRenderer;prepareCullFrustum(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/phys/Vec3;Lorg/joml/Matrix4f;)V",
-                    ordinal = 0
+                    value = "NEW",
+                    target = "org/joml/Matrix3f"
             )
     )
-    public PoseStack addRidePerspectiveRotation(PoseStack poseStack) {
+    public void addRidePerspectiveRotation(float f, long l, PoseStack poseStack, CallbackInfo ci) {
         final var perspectiveMode = PassengerPerspectiveMod.getPerspectiveMode();
         if (perspectiveMode != null) {
             perspectiveMode.transform(poseStack, papers$f, papers$l);
         }
-        return poseStack;
     }
 }

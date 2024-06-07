@@ -4,8 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 /**
  * A camera perspective mode.
@@ -31,12 +33,10 @@ public sealed interface CameraPerspectiveMode {
 
         private final ArmorStand armorStand;
         private final long creationTime;
-        private float lastYRot;
 
         public ArmorStandHead(ArmorStand armorStand) {
             this.armorStand = armorStand;
             this.creationTime = armorStand.level.getGameTime();
-            this.lastYRot = armorStand.getYRot();
         }
 
         /**
@@ -56,24 +56,19 @@ public sealed interface CameraPerspectiveMode {
             final var player = Minecraft.getInstance().player;
             if (!player.isPassenger()) return;
 
-            // fixme: is doing this on the render thread bad?
-            player.turn(
-                    (armorStand.getYRot() - lastYRot) / 0.15,
-                    0
-            );
-
-            lastYRot = armorStand.getYRot();
+            player.setYRot(Mth.rotLerp(tickProgress, armorStand.yRotO, armorStand.getYRot()));
 
             final var pose = armorStand.getHeadPose();
             final var lastPose = ((ArmorStandExt) armorStand).paper$lastHeadRot();
+            final var forward = Vec3.directionFromRotation(0, player.getYRot()).toVector3f();
 
             cameraPoseStack.rotateAround(
                     new Quaternionf()
-                            .rotateAxis((float) Math.toRadians(Mth.rotLerp(tickProgress, lastPose.getZ(), pose.getZ())), player.getForward().toVector3f())
+                            .rotateAxis((float) Math.toRadians(Mth.rotLerp(tickProgress, lastPose.getZ(), pose.getZ())), forward)
                             .rotateAxis((float) Math.toRadians(Mth.rotLerp(tickProgress, lastPose.getY(), pose.getY())), player.getUpVector(1).toVector3f())
-                            .rotateAxis((float) Math.toRadians(Mth.rotLerp(tickProgress, -lastPose.getX(), -pose.getX())), player.getForward().toVector3f().rotateY((float) (Math.PI / 2f))),
+                            .rotateAxis((float) Math.toRadians(Mth.rotLerp(tickProgress, lastPose.getX(), pose.getX())), forward.rotateY((float) (Math.PI / -2f))),
                     0,
-                    // fixme: this might be a little low?
+                    // fixme: i completely made this value up. it feels okay-ish but isn't right
                     (float) -1,
                     0
             );
