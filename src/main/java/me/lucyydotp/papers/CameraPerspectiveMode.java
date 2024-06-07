@@ -34,9 +34,12 @@ public sealed interface CameraPerspectiveMode {
         private final ArmorStand armorStand;
         private final long creationTime;
 
+        private float lastHeadY;
+
         public ArmorStandHead(ArmorStand armorStand) {
             this.armorStand = armorStand;
             this.creationTime = armorStand.level.getGameTime();
+            this.lastHeadY = armorStand.yHeadRot;
         }
 
         /**
@@ -56,7 +59,11 @@ public sealed interface CameraPerspectiveMode {
             final var player = Minecraft.getInstance().player;
             if (!player.isPassenger()) return;
 
-            player.setYRot(Mth.rotLerp(tickProgress, armorStand.yRotO, armorStand.getYRot()));
+//            player.setYRot(player.getYRot() + tickProgress * -Mth.degreesDifference(armorStand.getYRot(), armorStand.yRotO));
+
+            final var lerp = Mth.rotLerp(tickProgress, armorStand.yRotO, armorStand.getYRot());
+            player.setYRot(player.getYRot() + lerp - lastHeadY);
+            lastHeadY = lerp;
 
             final var pose = armorStand.getHeadPose();
             final var lastPose = ((ArmorStandExt) armorStand).paper$lastHeadRot();
