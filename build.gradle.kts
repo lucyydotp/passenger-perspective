@@ -21,6 +21,7 @@ dependencies {
 
 
 tasks.processResources {
+    outputs.upToDateWhen { false }
     filesMatching("fabric.mod.json") {
         expand("version" to project.version)
     }
