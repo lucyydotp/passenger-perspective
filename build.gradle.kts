@@ -13,6 +13,14 @@ plugins {
 group = "me.lucyydotp"
 version = "0.1.2"
 
+// When running in CI from a tag, set the version number to the tag name
+if (System.getenv("CI") != null && System.getenv("GITHUB_REF_TYPE") == "tag") {
+    val tag = System.getenv("GITHUB_REF_NAME")
+    if (tag.startsWith("v")) {
+        version = tag.substring(1)
+    }
+}
+
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 repositories {
@@ -48,9 +56,9 @@ publishMods {
 
     changelog = providers.provider {
         listOf(
-            version,
+            project.version,
             "footer"
-        ).joinToString("\n") { file("$it.md").readText() }
+        ).joinToString("\n") { file("changelogs/$it.md").readText() }
 
     }
 
