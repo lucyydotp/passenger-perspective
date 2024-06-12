@@ -1,4 +1,4 @@
-version = "0.1.2"
+version = "0.1.3"
 val MAIN_MINECRAFT_VERSION = "1.19.4"
 val ADDITIONAL_MINECRAFT_VERSIONS = setOf<String>()
 
