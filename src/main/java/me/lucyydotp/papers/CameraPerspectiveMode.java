@@ -56,6 +56,8 @@ public sealed interface CameraPerspectiveMode {
 
         @Override
         public void transform(PoseStack cameraPoseStack, float tickProgress, long time) {
+            if (!Minecraft.getInstance().options.getCameraType().isFirstPerson()) return;
+
             final var player = Minecraft.getInstance().player;
             if (!player.isPassenger()) return;
 
@@ -74,8 +76,7 @@ public sealed interface CameraPerspectiveMode {
                             .rotateLocalY((float) Math.toRadians(Mth.rotLerp(tickProgress, lastPose.getY(), pose.getY())))
                             .rotateAxis((float) Math.toRadians(Mth.rotLerp(tickProgress, lastPose.getX(), pose.getX())), forward.rotateY((float) (Math.PI / -2f))),
                     0,
-                    // fixme: i completely made this value up. it feels okay-ish but isn't right
-                    (float) -1,
+                    (float) -player.getPassengersRidingOffset(),
                     0
             );
         }
