@@ -24,3 +24,7 @@ jobs:
 
       - name: Build and publish
         run: ./gradlew publishMods
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
