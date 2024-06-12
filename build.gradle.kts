@@ -1,5 +1,5 @@
-version = "0.1.3"
-val MAIN_MINECRAFT_VERSION = "1.19.4"
+version = "0.1.4"
+val MAIN_MINECRAFT_VERSION = "1.20.1"
 val ADDITIONAL_MINECRAFT_VERSIONS = setOf<String>()
 
 plugins {
@@ -28,7 +28,7 @@ dependencies {
     minecraft("com.mojang:minecraft:$MAIN_MINECRAFT_VERSION")
     mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:0.15.11")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.87.2+1.19.4")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.92.2+1.20.1")
 }
 
 

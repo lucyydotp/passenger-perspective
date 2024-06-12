@@ -3,7 +3,6 @@ package me.lucyydotp.papers;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
@@ -22,7 +21,7 @@ public class RPCommand {
                         final var player = context.getSource().getPlayer();
 
                         // Find the closest armour stand with any equipment.
-                        final var entities = player.level.getEntitiesOfClass(
+                        final var entities = player.level().getEntitiesOfClass(
                                         ArmorStand.class,
                                         AABB.ofSize(player.position(), 10, 10, 10)
                                 )
