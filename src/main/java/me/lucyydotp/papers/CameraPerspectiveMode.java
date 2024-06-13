@@ -38,7 +38,7 @@ public sealed interface CameraPerspectiveMode {
         public ArmorStandHead(ArmorStand armorStand) {
             this.armorStand = armorStand;
             ((ArmorStandExt) armorStand).papers$shouldInterpolateHead(true);
-            this.creationTime = armorStand.level.getGameTime();
+            this.creationTime = armorStand.level().getGameTime();
             this.lastYRot = armorStand.yHeadRot;
         }
 
@@ -83,7 +83,7 @@ public sealed interface CameraPerspectiveMode {
 
         public boolean shouldGlow(ArmorStand entity) {
             if (!entity.is(armorStand)) return false;
-            final var diff = armorStand.level.getGameTime() - creationTime;
+            final var diff = armorStand.level().getGameTime() - creationTime;
 
             return diff < 5 ||
                     (7 < diff && diff < 12) ||

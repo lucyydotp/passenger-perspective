@@ -17,7 +17,8 @@ public class GameRendererMixin {
             method = "renderLevel",
             at = @At(
                     value = "NEW",
-                    target = "org/joml/Matrix3f"
+                    target = "org/joml/Matrix3f",
+                    remap = false
             )
     )
     public void addRidePerspectiveRotation(float f, long l, PoseStack poseStack, CallbackInfo ci) {
